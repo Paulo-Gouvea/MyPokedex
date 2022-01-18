@@ -78,7 +78,7 @@ export const TypesContainer = styled.View`
     flex-direction: row;
 `
 
-export const About = styled.Text`
+export const ColorTitle = styled.Text`
     margin: ${RFValue(16)}px 0 ${RFValue(16)}px 0;
 
     font-size: ${RFValue(14)}px;
@@ -87,5 +87,51 @@ export const About = styled.Text`
 `;
 
 export const Informations = styled.View`
+    width: ${RFValue(315)}px;
+    height: ${RFValue(50)}px;
 
+    flex-direction: row;
+    justify-content: space-between;
+`
+
+export const PokedexInfo = styled.Text`
+    margin-top: ${RFValue(16)}px;
+
+    font-size: ${RFValue(10)}px;
+    font-family: ${({ theme }) => theme.fonts.regular};
+    color: ${({ theme }) => theme.colors.dark_gray};
+`
+
+export const Stats = styled.View`
+    width: ${RFValue(312)}px;
+
+    flex-direction: row;
+`
+
+export const StatsTitleContainer = styled.View`
+    margin-right: ${RFValue(8)}px;
+`
+
+export const StatsTitle = styled.Text`
+    font-size: ${RFValue(10)}px;
+    font-family: ${({ theme }) => theme.fonts.bold};
+    color: ${({ theme }) => theme.colors.grass};
+`
+export const StatsBarContainer = styled.View`
+    flex: 1;
+`
+
+export const StatsBar = styled.View`
+    flex-direction: row;
+    align-items: center;
+
+    margin-bottom: ${RFValue(2.2)}px;
+`
+
+export const StatsBarValue = styled.Text`
+    margin: 0 ${RFValue(8)}px;
+`
+
+export const ProgressBarContainer = styled.View`
+    flex: 1;
 `
