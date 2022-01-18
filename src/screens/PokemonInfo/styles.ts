@@ -34,7 +34,7 @@ export const NameContainer = styled.View`
     align-items: center;
 `
 
-export const GoBack = styled.View`
+export const GoBack = styled.TouchableOpacity`
     width: 24px;
     height: 32px;
 

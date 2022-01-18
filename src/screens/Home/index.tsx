@@ -1,6 +1,9 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 
 import { RFValue } from 'react-native-responsive-fontsize';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 
 import {
     Container,
@@ -17,7 +20,15 @@ import AlphabeticalOrder from '../../assets/alphabetical_order.svg';
 
 import { PokemonCard } from '../../components/PokemonCard';
 
-export function Home(){
+interface HomeProps {
+    navigation: NativeStackNavigationProp<any, any>
+}
+
+export function Home({
+    navigation
+}: HomeProps){
+    navigation = useNavigation();
+
     const DATA = [
         {
             pokedexNumber: '#001',
@@ -45,7 +56,7 @@ export function Home(){
             name: 'Charmeleon'
         },
         {
-            pokedexNumber: '#001',
+            pokedexNumber: '#006',
             image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/006.png',
             name: 'Charizard'
         },
@@ -110,8 +121,18 @@ export function Home(){
             name: 'Pidgeot'
         },
     ]
+
+    function handleChangeScreen(){
+        navigation.navigate('PokemonInfo');
+    }
+
     return (
         <Container>
+            <StatusBar 
+                barStyle='dark-content'
+                backgroundColor='transparent'
+                translucent
+            />
             <Header>
                 <TitleContainer>
                     <Logo
@@ -144,6 +165,7 @@ export function Home(){
                             pokedexNumber={item.pokedexNumber}
                             image={item.image}
                             name={item.name}
+                            onPress={handleChangeScreen}
                         />
                     }
                 />

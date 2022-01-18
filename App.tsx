@@ -10,8 +10,7 @@ import {
 
 import theme from './src/global/styles/theme';
 
-import { Home } from './src/screens/Home';
-import { PokemonInfo } from './src/screens/PokemonInfo';
+import { Routes } from './src/routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,7 +24,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme} >
-      <PokemonInfo />
+      <Routes />
     </ThemeProvider>
   );  
 }

@@ -1,7 +1,9 @@
 import React from 'react';
+import { TouchableOpacityProps } from 'react-native';
  
 import {
    Container,
+   Button,
    Header,
    PokedexNumber,
    ImageContainer,
@@ -10,7 +12,7 @@ import {
    Name,
 } from './styles';
 
-interface PokemonCardProps {
+interface PokemonCardProps extends TouchableOpacityProps {
     pokedexNumber: string;
     image: string;
     name: string;
@@ -19,23 +21,26 @@ interface PokemonCardProps {
 export function PokemonCard({
     pokedexNumber,
     image,
-    name
+    name,
+    ...rest
 }: PokemonCardProps){
    return (
       <Container>
-          <Header>
-              <PokedexNumber>{pokedexNumber}</PokedexNumber>
-          </Header>
+          <Button {...rest}>
+            <Header>
+                <PokedexNumber>{pokedexNumber}</PokedexNumber>
+            </Header>
 
-          <ImageContainer>
-            <Image 
-                source={{uri: image}}
-            />
-          </ImageContainer>
+            <ImageContainer>
+                <Image 
+                    source={{uri: image}}
+                />
+            </ImageContainer>
 
-          <Footer>
-              <Name>{name}</Name>
-          </Footer>
+            <Footer>
+                <Name>{name}</Name>
+            </Footer>
+          </Button>
       </Container>
    );
 }

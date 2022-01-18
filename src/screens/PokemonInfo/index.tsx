@@ -1,5 +1,4 @@
 import React from 'react';
-import { ProgressBar } from 'react-native-paper';
 import { StatusBar } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
  
@@ -22,6 +21,9 @@ import {
    StatsTitle,
    StatsBarContainer,
 } from './styles';
+
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
  
 import logo from '../../assets/logo_background.png';
 import GoBackIcon from '../../assets/go_back.svg';
@@ -35,8 +37,15 @@ import { AbilityCard } from '../../components/InformationContainer/AbilityCard';
 import { Line } from '../../components/InformationContainer/Line';
 import { StatsBar } from '../../components/StatsBar';
 
-export function PokemonInfo(){
+interface PokemonInfoProps {
+    navigation: NativeStackNavigationProp<any, any>;
+}
+
+export function PokemonInfo({
+    navigation
+}: PokemonInfoProps){
     const theme = useTheme();
+    navigation = useNavigation();
 
     const pokemon = {
         name: 'Bulbasaur',
@@ -46,6 +55,10 @@ export function PokemonInfo(){
         height: '100,0',
         abilities: ['Water Compaction', 'Water Compaction'],
         stats: [45, 49, 49, 65, 65, 45]
+    }
+
+    function HandleGoBack(){
+        navigation.goBack();
     }
 
    return (
@@ -62,7 +75,9 @@ export function PokemonInfo(){
 
           <Header>
               <NameContainer>
-                  <GoBack>
+                  <GoBack
+                    onPress={HandleGoBack}
+                  >
                     <GoBackIcon 
                         height={RFValue(17)}
                         width={RFValue(17)}

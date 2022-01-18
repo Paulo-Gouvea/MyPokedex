@@ -5,13 +5,23 @@ export const Container = styled.View`
   width: ${RFValue(104)}px;
   height: ${RFValue(112)}px;
 
-  background-color: ${({theme}) => theme.colors.white};
+  align-items: center;
+  justify-content: center;
 
   border-width: 1px;
   border-color: ${({theme}) => theme.colors.grass};
   border-radius: 8px;
 
   margin-bottom: 8px;
+`;
+
+export const Button = styled.TouchableOpacity`
+    width: 100%;
+    height: 100%;
+
+    border-radius: 8px;
+
+    background-color: ${({theme}) => theme.colors.white};
 `;
 
 export const Header = styled.View`
