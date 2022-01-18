@@ -3,6 +3,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
     width: ${RFValue(70)}px;
+    justify-content: space-between;
 `;
 
 export const Info = styled.View`
