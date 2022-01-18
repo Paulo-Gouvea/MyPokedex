@@ -21,9 +21,6 @@ import {
    StatsTitleContainer,
    StatsTitle,
    StatsBarContainer,
-   StatsBar,
-   StatsBarValue,
-   ProgressBarContainer,
 } from './styles';
  
 import logo from '../../assets/logo_background.png';
@@ -36,6 +33,7 @@ import { WeightCard } from '../../components/InformationContainer/WeightCard';
 import { HeightCard } from '../../components/InformationContainer/HeightCard';
 import { AbilityCard } from '../../components/InformationContainer/AbilityCard';
 import { Line } from '../../components/InformationContainer/Line';
+import { StatsBar } from '../../components/StatsBar';
 
 export function PokemonInfo(){
     const theme = useTheme();
@@ -122,60 +120,36 @@ export function PokemonInfo(){
                 <Line />
 
                 <StatsBarContainer>
-                    <StatsBar>
-                        <StatsBarValue>45</StatsBarValue>
-                        <ProgressBarContainer>
-                            <ProgressBar 
-                                progress={45/255} 
-                                color={theme.colors.grass} 
-                            />
-                        </ProgressBarContainer>
-                    </StatsBar>
-                    <StatsBar>
-                        <StatsBarValue>49</StatsBarValue>
-                        <ProgressBarContainer>
-                            <ProgressBar 
-                                progress={49/190} 
-                                color={theme.colors.grass} 
-                            />
-                        </ProgressBarContainer>
-                    </StatsBar>
-                    <StatsBar>
-                        <StatsBarValue>49</StatsBarValue>
-                        <ProgressBarContainer>
-                            <ProgressBar 
-                                progress={49/250} 
-                                color={theme.colors.grass} 
-                            />
-                        </ProgressBarContainer>
-                    </StatsBar>
-                    <StatsBar>
-                        <StatsBarValue>65</StatsBarValue>
-                        <ProgressBarContainer>
-                            <ProgressBar 
-                                progress={65/194} 
-                                color={theme.colors.grass} 
-                            />
-                        </ProgressBarContainer>
-                    </StatsBar>
-                    <StatsBar>
-                        <StatsBarValue>65</StatsBarValue>
-                        <ProgressBarContainer>
-                            <ProgressBar 
-                                progress={65/250} 
-                                color={theme.colors.grass} 
-                            />
-                        </ProgressBarContainer>
-                    </StatsBar>
-                    <StatsBar>
-                        <StatsBarValue>45</StatsBarValue>
-                        <ProgressBarContainer>
-                            <ProgressBar 
-                                progress={45/200} 
-                                color={theme.colors.grass} 
-                            />
-                        </ProgressBarContainer>
-                    </StatsBar>                
+                    <StatsBar 
+                        value='45'
+                        progress={45/255}
+                        color={theme.colors.grass}
+                    />
+                    <StatsBar 
+                        value='49'
+                        progress={49/190}
+                        color={theme.colors.grass}
+                    />
+                    <StatsBar 
+                        value='49'
+                        progress={49/250}
+                        color={theme.colors.grass}
+                    />
+                    <StatsBar 
+                        value='65'
+                        progress={65/194}
+                        color={theme.colors.grass}
+                    />
+                    <StatsBar 
+                        value='65'
+                        progress={65/250}
+                        color={theme.colors.grass}
+                    />
+                    <StatsBar 
+                        value='45'
+                        progress={45/200}
+                        color={theme.colors.grass}
+                    />
                 </StatsBarContainer>
             </Stats>
           </Content>
