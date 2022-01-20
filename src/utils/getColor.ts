@@ -1,0 +1,40 @@
+export function getColor(type: string){
+    switch(type) {
+        case 'Rock':
+            return '#B69E31';
+        case 'Ghost':
+            return '#70559B';
+        case 'Steel':
+            return '#B7B9D0';
+        case 'Water':
+            return '#6493EB';
+        case 'Grass':
+            return '#74CB48';
+        case 'Psychic':
+            return '#FB5584';
+        case 'Ice':
+            return '#94D6DF';
+        case 'Dark':
+            return '#75574C';
+        case 'Fairy':
+            return '#E69EAC';
+        case 'Normal':
+            return '#AAA67F';
+        case 'Fighting':
+            return '#C12239';
+        case 'Flying':
+            return '#A891EC';
+        case 'Poison':
+            return '#A43E9E';
+        case 'Ground':
+            return '#DEC16B';
+        case 'Bug':
+            return '#A7B723';
+        case 'Fire':
+            return '#F57D31';
+        case 'Electric':
+            return '#F9CF30';
+        case 'Dragon':
+            return '#7037FF'
+    }
+}

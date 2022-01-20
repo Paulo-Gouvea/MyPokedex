@@ -2,9 +2,13 @@ import styled from 'styled-components/native';
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-export const Container = styled.View`
+interface PokemonInfoStyleProps {
+    cardColor: string;
+}
+
+export const Container = styled.View<PokemonInfoStyleProps>`
   flex: 1;
-  background-color: ${({theme}) => theme.colors.grass};
+  background-color: ${({cardColor}) => cardColor};
 
   align-items: center;
 `;
@@ -78,12 +82,12 @@ export const TypesContainer = styled.View`
     flex-direction: row;
 `
 
-export const ColorTitle = styled.Text`
+export const ColorTitle = styled.Text<PokemonInfoStyleProps>`
     margin: ${RFValue(16)}px 0 ${RFValue(16)}px 0;
 
     font-size: ${RFValue(14)}px;
     font-family: ${({ theme }) => theme.fonts.bold};
-    color: ${({ theme }) => theme.colors.grass};
+    color: ${({ cardColor }) => cardColor};
 `;
 
 export const Informations = styled.View`
@@ -112,10 +116,10 @@ export const StatsTitleContainer = styled.View`
     margin-right: ${RFValue(8)}px;
 `
 
-export const StatsTitle = styled.Text`
+export const StatsTitle = styled.Text<PokemonInfoStyleProps>`
     font-size: ${RFValue(10)}px;
     font-family: ${({ theme }) => theme.fonts.bold};
-    color: ${({ theme }) => theme.colors.grass};
+    color: ${({ cardColor }) => cardColor};
 `
 export const StatsBarContainer = styled.View`
     flex: 1;

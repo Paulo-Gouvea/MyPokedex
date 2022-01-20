@@ -1,7 +1,11 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-export const Container = styled.View`
+interface PokemonCardStyleProps {
+    cardColor: string;
+}
+
+export const Container = styled.View<PokemonCardStyleProps>`
   width: ${RFValue(104)}px;
   height: ${RFValue(112)}px;
 
@@ -9,7 +13,7 @@ export const Container = styled.View`
   justify-content: center;
 
   border-width: 1px;
-  border-color: ${({theme}) => theme.colors.grass};
+  border-color: ${({ cardColor }) => cardColor};
   border-radius: 8px;
 
   margin-bottom: 8px;
@@ -31,11 +35,11 @@ export const Header = styled.View`
     padding-right: 8px;
 `
 
-export const PokedexNumber = styled.Text`
+export const PokedexNumber = styled.Text<PokemonCardStyleProps>`
     font-size: ${RFValue(10)}px;
     font-family: ${({theme}) => theme.fonts.regular};
 
-    color: ${({theme}) => theme.colors.grass};
+    color: ${({ cardColor }) => cardColor};
 `
 
 export const ImageContainer = styled.View`
@@ -48,12 +52,12 @@ export const Image = styled.Image`
     height: ${RFValue(72)}px;
 `
 
-export const Footer = styled.View`
+export const Footer = styled.View<PokemonCardStyleProps>`
     flex: 1;
     align-items: center;
     justify-content: center;
 
-    background-color: ${({theme}) => theme.colors.grass};
+    background-color: ${({ cardColor }) => cardColor};
 
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;

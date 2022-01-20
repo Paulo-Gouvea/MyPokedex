@@ -3,11 +3,7 @@ import { FlatList, FlatListProps } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
-interface Pokemon {
-  pokedexNumber: string;
-  image: string;
-  name: string;
-}
+import { PokemonInterface } from '../../interfaces/PokemonInterface';
 
 export const Container = styled.View`
   flex: 1;
@@ -39,6 +35,10 @@ export const HeaderTitle = styled.Text`
   margin-left: ${RFValue(16)}px;
 `
 
+export const Button = styled.TouchableOpacity`
+  
+`
+
 export const Input = styled.TextInput`
   height: ${RFValue(32)}px;
   width: 100%;
@@ -56,7 +56,7 @@ export const PokemonListWrapper = styled.View`
 `
 
 export const PokemonList = styled(
-  FlatList as new (props: FlatListProps<Pokemon>) => FlatList<Pokemon>).attrs({})``;
+  FlatList as new (props: FlatListProps<PokemonInterface>) => FlatList<PokemonInterface>).attrs({})``;
 
 export const PokemonCardContainer = styled.View`
 

@@ -16,19 +16,21 @@ interface PokemonCardProps extends TouchableOpacityProps {
     pokedexNumber: string;
     image: string;
     name: string;
+    cardColor: string;
 }
  
 export function PokemonCard({
     pokedexNumber,
     image,
     name,
+    cardColor,
     ...rest
 }: PokemonCardProps){
    return (
-      <Container>
+      <Container cardColor={cardColor} >
           <Button {...rest}>
             <Header>
-                <PokedexNumber>{pokedexNumber}</PokedexNumber>
+                <PokedexNumber cardColor={cardColor} >{pokedexNumber}</PokedexNumber>
             </Header>
 
             <ImageContainer>
@@ -37,7 +39,7 @@ export function PokemonCard({
                 />
             </ImageContainer>
 
-            <Footer>
+            <Footer cardColor={cardColor} >
                 <Name>{name}</Name>
             </Footer>
           </Button>

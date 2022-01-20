@@ -7,11 +7,12 @@ import {
  
 interface TypeProps {
     name: string;
+    typeColor: string;
 }
 
-export function Type({name}: TypeProps){
+export function Type({name, typeColor}: TypeProps){
    return (
-      <Container>
+      <Container typeColor={typeColor} >
           <TypeName>{name}</TypeName>
       </Container>
    );

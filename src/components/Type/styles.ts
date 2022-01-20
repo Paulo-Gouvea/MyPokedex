@@ -1,7 +1,11 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+interface TypeStyleProps {
+  typeColor: string;
+}
+
+export const Container = styled.View<TypeStyleProps>`
   width: ${RFValue(75)}px;
   height: ${RFValue(20)}px;
 
@@ -11,7 +15,7 @@ export const Container = styled.View`
   border-radius: 10px;
   margin: 0 ${RFValue(8)}px 0 ${RFValue(8)}px;
 
-  background-color: ${({theme}) => theme.colors.grass};
+  background-color: ${({typeColor}) => typeColor};
 `;
 
 export const TypeName = styled.Text`

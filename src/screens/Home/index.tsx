@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -9,14 +9,21 @@ import {
     Container,
     Header,
     TitleContainer,
+    Button,
     HeaderTitle,
     Input,
     PokemonListWrapper,
     PokemonList,
 } from './styles';
 
+import { getColor } from '../../utils/getColor';
+import { handlePokedexNumber } from '../../utils/handlePokedexNumber';
+import { pokemonCollection } from '../../utils/pokemonCollection';
+import { PokemonInterface } from '../../interfaces/PokemonInterface';
+
 import Logo from '../../assets/logo.svg';
 import AlphabeticalOrder from '../../assets/alphabetical_order.svg';
+import NumericalOrder from '../../assets/numerical_order.svg';
 
 import { PokemonCard } from '../../components/PokemonCard';
 
@@ -27,104 +34,35 @@ interface HomeProps {
 export function Home({
     navigation
 }: HomeProps){
+    const [pokemonList, setPokemonList] = useState<PokemonInterface[]>([]);
+    const [findPokemon, setFindPokemon] = useState('');
+    const [alphabeticalOrder, setAlphabeticalOrder] = useState(false);
+
     navigation = useNavigation();
 
-    const DATA = [
-        {
-            pokedexNumber: '#001',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png',
-            name: 'Bulbasaur'
-        },
-        {
-            pokedexNumber: '#002',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/002.png',
-            name: 'Ivysaur'
-        },
-        {
-            pokedexNumber: '#003',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/003.png',
-            name: 'Venusaur'
-        },
-        {
-            pokedexNumber: '#004',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png',
-            name: 'Charmander'
-        },
-        {
-            pokedexNumber: '#005',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/005.png',
-            name: 'Charmeleon'
-        },
-        {
-            pokedexNumber: '#006',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/006.png',
-            name: 'Charizard'
-        },
-        {
-            pokedexNumber: '#007',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png',
-            name: 'Squirtle'
-        },
-        {
-            pokedexNumber: '#008',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/008.png',
-            name: 'Wartortle'
-        },
-        {
-            pokedexNumber: '#009',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/009.png',
-            name: 'Blastoise'
-        },
-        {
-            pokedexNumber: '#010',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/010.png',
-            name: 'Cartepie'
-        },
-        {
-            pokedexNumber: '#011',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/011.png',
-            name: 'Metapod'
-        },
-        {
-            pokedexNumber: '#012',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/012.png',
-            name: 'Burteflee'
-        },
-        {
-            pokedexNumber: '#013',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/013.png',
-            name: 'Weedle'
-        },
-        {
-            pokedexNumber: '#014',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/014.png',
-            name: 'Kakuna'
-        },
-        {
-            pokedexNumber: '#015',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/015.png',
-            name: 'Beedrill'
-        },
-        {
-            pokedexNumber: '#016',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/016.png',
-            name: 'Pidgey'
-        },
-        {
-            pokedexNumber: '#017',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/017.png',
-            name: 'Pidgeotto'
-        },
-        {
-            pokedexNumber: '#018',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/018.png',
-            name: 'Pidgeot'
-        },
-    ]
-
-    function handleChangeScreen(){
-        navigation.navigate('PokemonInfo');
+    function handleChangeScreen(pokemon: PokemonInterface){
+        navigation.navigate('PokemonInfo', { pokemon });
     }
+
+    function handleChangeOrder(){
+        setAlphabeticalOrder(!alphabeticalOrder);
+    }
+
+    useEffect(()=> {
+        setPokemonList(pokemonCollection)
+    }, [])
+
+    useEffect(() => {
+        function handleFindPokemon(pokemon: string){
+            if(pokemon === ''){
+                return;
+            }
+
+            console.log('hi')
+        }
+
+        handleFindPokemon(findPokemon)
+    }, [findPokemon])
 
     return (
         <Container>
@@ -142,30 +80,52 @@ export function Home({
                     <HeaderTitle>Pokédex</HeaderTitle>
                 </TitleContainer>
 
-                <AlphabeticalOrder
-                    width={RFValue(20)}
-                    height={RFValue(32)}
-                />
+                <Button
+                    onPress={handleChangeOrder}
+                >
+                    {
+                        alphabeticalOrder
+                        ?
+                        <NumericalOrder
+                            width={RFValue(20)}
+                            height={RFValue(32)}
+                        />
+                        :
+                        <AlphabeticalOrder
+                            width={RFValue(20)}
+                            height={RFValue(32)}
+                        />
+                    } 
+                </Button>
             </Header>
 
             <Input 
-                placeholder='Procurar'
+                placeholder='Find'
                 textAlign='center'
+                value={findPokemon}
+                onChangeText={setFindPokemon}
             />
 
             <PokemonListWrapper>
                 <PokemonList 
-                    data={DATA}
-                    keyExtractor={item => item.pokedexNumber}
+                    data={
+                        alphabeticalOrder 
+                        ?
+                        pokemonList.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+                        :
+                        pokemonList.sort((a, b) => (a.pokedexNumber > b.pokedexNumber) ? 1 : ((b.pokedexNumber > a.pokedexNumber) ? -1 : 0))
+                    }
+                    keyExtractor={item => item.id.toString()}
                     numColumns={3}
                     columnWrapperStyle={{ justifyContent: 'space-between' }}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => 
                         <PokemonCard
-                            pokedexNumber={item.pokedexNumber}
+                            pokedexNumber={handlePokedexNumber(item.pokedexNumber)}
                             image={item.image}
                             name={item.name}
-                            onPress={handleChangeScreen}
+                            onPress={() => handleChangeScreen(item)}
+                            cardColor={getColor(item.types[0].type)}
                         />
                     }
                 />

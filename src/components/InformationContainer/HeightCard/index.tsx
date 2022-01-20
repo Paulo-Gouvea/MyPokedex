@@ -9,8 +9,14 @@ import {
 } from './styles';
 
 import Icon from '../../../assets/Height.svg';
+
+interface HeightCardProps {
+   value: string;
+}
  
-export function HeightCard(){
+export function HeightCard({
+   value
+}: HeightCardProps){
    return (
       <Container>
           <Info>
@@ -18,7 +24,7 @@ export function HeightCard(){
                 height={RFValue(16)}
                 width={RFValue(16)}
               />
-              <Spec>100,0 m</Spec>
+              <Spec>{value}</Spec>
           </Info>
 
           <Title>Height</Title>

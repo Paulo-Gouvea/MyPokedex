@@ -23,12 +23,15 @@ import {
 } from './styles';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
  
+import { getColor } from '../../utils/getColor';
+import { handleStatNumber } from '../../utils/handleStatNumber';
+import { handlePokedexNumber } from '../../utils/handlePokedexNumber';
+import { PokemonInterface } from '../../interfaces/PokemonInterface';
+
 import logo from '../../assets/logo_background.png';
 import GoBackIcon from '../../assets/go_back.svg';
-
-import { useTheme } from 'styled-components';
 
 import { Type } from '../../components/Type';
 import { WeightCard } from '../../components/InformationContainer/WeightCard';
@@ -37,32 +40,29 @@ import { AbilityCard } from '../../components/InformationContainer/AbilityCard';
 import { Line } from '../../components/InformationContainer/Line';
 import { StatsBar } from '../../components/StatsBar';
 
+
 interface PokemonInfoProps {
     navigation: NativeStackNavigationProp<any, any>;
+}
+
+interface Params {
+    pokemon: PokemonInterface
 }
 
 export function PokemonInfo({
     navigation
 }: PokemonInfoProps){
-    const theme = useTheme();
     navigation = useNavigation();
 
-    const pokemon = {
-        name: 'Bulbasaur',
-        number: '001',
-        type: ['Grass', 'Poison'],
-        weight: '999,9',
-        height: '100,0',
-        abilities: ['Water Compaction', 'Water Compaction'],
-        stats: [45, 49, 49, 65, 65, 45]
-    }
+    const route = useRoute();
+    const { pokemon } = route.params as Params;
 
     function HandleGoBack(){
         navigation.goBack();
     }
 
    return (
-      <Container>
+      <Container cardColor={getColor(pokemon.types[0].type)} >
           <StatusBar
             backgroundColor='transparent'
             barStyle='light-content'
@@ -84,86 +84,87 @@ export function PokemonInfo({
                     />
                   </GoBack>
 
-                  <Name>Bulbasaur</Name>
+                  <Name>{pokemon.name}</Name>
               </NameContainer>
 
-              <PokemonNumber>#001</PokemonNumber>
+              <PokemonNumber>{handlePokedexNumber(pokemon.pokedexNumber)}</PokemonNumber>
           </Header>
 
           <Content>
             <PokemonImage 
-                source={{uri: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png'}}
+                source={{uri: pokemon.image}}
             />
 
             <TypesContainer>
                 {
-                    pokemon.type.map((item) => {
+                    pokemon.types.map((item) => {
                         return (
                             <Type 
-                                key={item}
-                                name={item}
+                                key={item.id}
+                                name={item.type}
+                                typeColor={getColor(item.type)}
                             />
                         )
                     })
                 }
             </TypesContainer>
 
-            <ColorTitle>About</ColorTitle>
+            <ColorTitle cardColor={getColor(pokemon.types[0].type)} >About</ColorTitle>
 
             <Informations>
-                <WeightCard />
+                <WeightCard value={pokemon.weight}/>
                 <Line />
-                <HeightCard />
+                <HeightCard value={pokemon.height}/>
                 <Line />
-                <AbilityCard />
+                <AbilityCard abilities={pokemon.abilities} />
             </Informations>
 
-            <PokedexInfo>There is a plant seed in its back right from the day this{'\n'}Pokémon is born. The seed slowly grows larger.</PokedexInfo>
+            <PokedexInfo>{pokemon.pokedexDescription}</PokedexInfo>
             
-            <ColorTitle>Base Stats</ColorTitle>
+            <ColorTitle cardColor={getColor(pokemon.types[0].type)} >Base Stats</ColorTitle>
 
             <Stats>
                 <StatsTitleContainer>
-                    <StatsTitle>HP</StatsTitle>
-                    <StatsTitle>ATK</StatsTitle>
-                    <StatsTitle>DEF</StatsTitle>
-                    <StatsTitle>SATK</StatsTitle>
-                    <StatsTitle>SDEF</StatsTitle>
-                    <StatsTitle>SPD</StatsTitle>
+                    <StatsTitle cardColor={getColor(pokemon.types[0].type)} >HP</StatsTitle>
+                    <StatsTitle cardColor={getColor(pokemon.types[0].type)} >ATK</StatsTitle>
+                    <StatsTitle cardColor={getColor(pokemon.types[0].type)} >DEF</StatsTitle>
+                    <StatsTitle cardColor={getColor(pokemon.types[0].type)} >SATK</StatsTitle>
+                    <StatsTitle cardColor={getColor(pokemon.types[0].type)} >SDEF</StatsTitle>
+                    <StatsTitle cardColor={getColor(pokemon.types[0].type)} >SPD</StatsTitle>
                 </StatsTitleContainer>
 
                 <Line />
 
                 <StatsBarContainer>
                     <StatsBar 
-                        value='45'
-                        progress={45/255}
-                        color={theme.colors.grass}
+                        value={handleStatNumber(pokemon.stats[0].value)}
+                        progress={pokemon.stats[0].value/255}
+                        color={getColor(pokemon.types[0].type)}
                     />
                     <StatsBar 
-                        value='49'
-                        progress={49/190}
-                        color={theme.colors.grass}
+                        value={handleStatNumber(pokemon.stats[1].value)}
+                        progress={pokemon.stats[1].value/190}
+                        color={getColor(pokemon.types[0].type)}
                     />
                     <StatsBar 
-                        value='49'
-                        progress={49/250}
-                        color={theme.colors.grass}
+                        value={handleStatNumber(pokemon.stats[2].value)}
+                        progress={pokemon.stats[2].value/250}
+                        color={getColor(pokemon.types[0].type)}
                     />
                     <StatsBar 
-                        value='65'
-                        progress={65/194}
-                        color={theme.colors.grass}
+                        value={handleStatNumber(pokemon.stats[3].value)}
+                        progress={pokemon.stats[3].value/194}
+                        color={getColor(pokemon.types[0].type)}
                     />
                     <StatsBar 
-                        value='65'
-                        progress={65/250}
-                        color={theme.colors.grass}
+                        value={handleStatNumber(pokemon.stats[4].value)}
+                        progress={pokemon.stats[4].value/250}
+                        color={getColor(pokemon.types[0].type)}
                     />
                     <StatsBar 
-                        value='45'
-                        progress={45/200}
-                        color={theme.colors.grass}
+                        value={handleStatNumber(pokemon.stats[5].value)}
+                        progress={pokemon.stats[5].value/200}
+                        color={getColor(pokemon.types[0].type)}
                     />
                 </StatsBarContainer>
             </Stats>

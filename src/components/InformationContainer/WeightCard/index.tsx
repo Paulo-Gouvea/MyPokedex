@@ -9,8 +9,14 @@ import {
 } from './styles';
 
 import Icon from '../../../assets/Weight.svg';
+
+interface WeightCardProps {
+   value: string
+}
  
-export function WeightCard(){
+export function WeightCard({
+   value
+}: WeightCardProps){
    return (
       <Container>
           <Info>
@@ -18,7 +24,7 @@ export function WeightCard(){
                 height={RFValue(16)}
                 width={RFValue(16)}
               />
-              <Spec>999,9 kg</Spec>
+              <Spec>{value}</Spec>
           </Info>
 
           <Title>Weight</Title>
