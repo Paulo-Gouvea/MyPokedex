@@ -3,10 +3,12 @@ import { FlatList, FlatListProps } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
-interface Pokemon {
-  pokedexNumber: string;
-  image: string;
+interface pokemonListProps {
+  height: number;
+  id: number;
   name: string;
+  image: string;
+  type: string;
 }
 
 export const Container = styled.View`
@@ -56,7 +58,7 @@ export const PokemonListWrapper = styled.View`
 `
 
 export const PokemonList = styled(
-  FlatList as new (props: FlatListProps<Pokemon>) => FlatList<Pokemon>).attrs({})``;
+  FlatList as new (props: FlatListProps<pokemonListProps>) => FlatList<pokemonListProps>).attrs({})``;
 
 export const PokemonCardContainer = styled.View`
 

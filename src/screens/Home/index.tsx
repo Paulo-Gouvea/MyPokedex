@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StatusBar } from 'react-native';
+
+import { useFocusEffect } from '@react-navigation/native';
 
 import { RFValue } from 'react-native-responsive-fontsize';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
+
+import { api } from '../../services/api';
 
 import {
     Container,
@@ -16,7 +20,7 @@ import {
 } from './styles';
 
 import Logo from '../../assets/logo.svg';
-import AlphabeticalOrder from '../../assets/alphabetical_order.svg';
+import NumericalOrder from '../../assets/numerical_order.svg';
 
 import { PokemonCard } from '../../components/PokemonCard';
 
@@ -24,107 +28,63 @@ interface HomeProps {
     navigation: NativeStackNavigationProp<any, any>
 }
 
+interface pokemonListProps {
+    height: number;
+    id: number;
+    name: string;
+    image: string;
+    type: string;
+}
+
 export function Home({
     navigation
 }: HomeProps){
+    const [pokemonList, setPokemonList] = useState<pokemonListProps[]>([]);
     navigation = useNavigation();
-
-    const DATA = [
-        {
-            pokedexNumber: '#001',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png',
-            name: 'Bulbasaur'
-        },
-        {
-            pokedexNumber: '#002',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/002.png',
-            name: 'Ivysaur'
-        },
-        {
-            pokedexNumber: '#003',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/003.png',
-            name: 'Venusaur'
-        },
-        {
-            pokedexNumber: '#004',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png',
-            name: 'Charmander'
-        },
-        {
-            pokedexNumber: '#005',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/005.png',
-            name: 'Charmeleon'
-        },
-        {
-            pokedexNumber: '#006',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/006.png',
-            name: 'Charizard'
-        },
-        {
-            pokedexNumber: '#007',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png',
-            name: 'Squirtle'
-        },
-        {
-            pokedexNumber: '#008',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/008.png',
-            name: 'Wartortle'
-        },
-        {
-            pokedexNumber: '#009',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/009.png',
-            name: 'Blastoise'
-        },
-        {
-            pokedexNumber: '#010',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/010.png',
-            name: 'Cartepie'
-        },
-        {
-            pokedexNumber: '#011',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/011.png',
-            name: 'Metapod'
-        },
-        {
-            pokedexNumber: '#012',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/012.png',
-            name: 'Burteflee'
-        },
-        {
-            pokedexNumber: '#013',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/013.png',
-            name: 'Weedle'
-        },
-        {
-            pokedexNumber: '#014',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/014.png',
-            name: 'Kakuna'
-        },
-        {
-            pokedexNumber: '#015',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/015.png',
-            name: 'Beedrill'
-        },
-        {
-            pokedexNumber: '#016',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/016.png',
-            name: 'Pidgey'
-        },
-        {
-            pokedexNumber: '#017',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/017.png',
-            name: 'Pidgeotto'
-        },
-        {
-            pokedexNumber: '#018',
-            image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/018.png',
-            name: 'Pidgeot'
-        },
-    ]
 
     function handleChangeScreen(){
         navigation.navigate('PokemonInfo');
     }
+
+    function handlePokedexNumber(id: number){
+        let formattedNumber = id.toString();
+
+        if(formattedNumber.length === 1){
+            return `#00${formattedNumber}`;
+        }else if(formattedNumber.length === 2){
+            return `#0${formattedNumber}`;
+        }else{
+            return `#${formattedNumber}`;
+        }
+    }
+
+    useEffect(() => {
+        async function fetchPokemon(){
+            const response = await api.get('pokemon?limit=9&offset=0');
+            const allPokemons = response.data.results;
+
+            const allPokemonsFormatted = allPokemons.map((item) => item.name);
+
+            allPokemonsFormatted.map(async(item) => {
+                await api.get(`pokemon/${item}`)
+                .then((response) => {
+                    let currentPokemon = {
+                        height: response.data.height,
+                        id: response.data.id,
+                        name: response.data.name,
+                        image: response.data.sprites.other.home.front_default,
+                        type: response.data.types[0].type.name
+                        //abilities
+                        //stats
+                    }
+
+                    setPokemonList(oldState => [...oldState, currentPokemon])
+                })
+            })
+        }
+
+        fetchPokemon();
+    }, []);
 
     return (
         <Container>
@@ -142,7 +102,7 @@ export function Home({
                     <HeaderTitle>Pokédex</HeaderTitle>
                 </TitleContainer>
 
-                <AlphabeticalOrder
+                <NumericalOrder
                     width={RFValue(20)}
                     height={RFValue(32)}
                 />
@@ -155,14 +115,14 @@ export function Home({
 
             <PokemonListWrapper>
                 <PokemonList 
-                    data={DATA}
-                    keyExtractor={item => item.pokedexNumber}
+                    data={pokemonList}
+                    keyExtractor={(item) => item.id.toString()}
                     numColumns={3}
                     columnWrapperStyle={{ justifyContent: 'space-between' }}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => 
                         <PokemonCard
-                            pokedexNumber={item.pokedexNumber}
+                            pokedexNumber={handlePokedexNumber(item.id)}
                             image={item.image}
                             name={item.name}
                             onPress={handleChangeScreen}
