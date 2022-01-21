@@ -99,12 +99,12 @@ export function Home({
                 </Button>
             </Header>
 
-            <Input 
+            {/* <Input 
                 placeholder='Find'
                 textAlign='center'
                 value={findPokemon}
                 onChangeText={setFindPokemon}
-            />
+            /> */}
 
             <PokemonListWrapper>
                 <PokemonList 
