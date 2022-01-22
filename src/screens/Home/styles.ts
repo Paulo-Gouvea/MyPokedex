@@ -39,18 +39,6 @@ export const Button = styled.TouchableOpacity`
   
 `
 
-export const Input = styled.TextInput`
-  height: ${RFValue(32)}px;
-  width: 100%;
-
-  background-color: ${({ theme }) => theme.colors.white};
-
-  border-radius: 8px;
-  border-width: 1px;
-  border-color: ${({theme})=> theme.colors.light_gray};
-
-  margin: 8px 0 16px 0;
-`
 export const PokemonListWrapper = styled.View`
   flex: 1;
 `

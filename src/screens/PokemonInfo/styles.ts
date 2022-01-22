@@ -69,13 +69,35 @@ export const Content = styled.View`
     position: absolute;
 
     border-radius: 8px;
+    padding-top: ${RFValue(60)}px;
 `;
+
+export const PokemonSlider = styled.View`
+    height: ${RFValue(200)}px;
+    width: 100%;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1;
+
+    margin-top: ${RFValue(25)}px;
+`
+
+export const SliderButton = styled.TouchableOpacity`
+    align-items: center;
+    justify-content: center;
+
+    width: ${RFValue(24)}px;
+    height: ${RFValue(48)}px;
+
+    margin: 0 ${RFValue(35)}px;
+`
 
 export const PokemonImage = styled.Image`
     height: ${RFValue(200)}px;
     width: ${RFValue(200)}px;
-
-    margin-top: ${RFValue(-140)}px;
 `
 
 export const TypesContainer = styled.View`

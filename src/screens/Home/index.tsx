@@ -11,7 +11,6 @@ import {
     TitleContainer,
     Button,
     HeaderTitle,
-    Input,
     PokemonListWrapper,
     PokemonList,
 } from './styles';
@@ -35,13 +34,12 @@ export function Home({
     navigation
 }: HomeProps){
     const [pokemonList, setPokemonList] = useState<PokemonInterface[]>([]);
-    const [findPokemon, setFindPokemon] = useState('');
     const [alphabeticalOrder, setAlphabeticalOrder] = useState(false);
 
     navigation = useNavigation();
 
-    function handleChangeScreen(pokemon: PokemonInterface){
-        navigation.navigate('PokemonInfo', { pokemon });
+    function handleChangeScreen(pokemon: PokemonInterface, pokemonList: PokemonInterface[]){
+        navigation.navigate('PokemonInfo', { pokemon, pokemonList });
     }
 
     function handleChangeOrder(){
@@ -51,18 +49,6 @@ export function Home({
     useEffect(()=> {
         setPokemonList(pokemonCollection)
     }, [])
-
-    useEffect(() => {
-        function handleFindPokemon(pokemon: string){
-            if(pokemon === ''){
-                return;
-            }
-
-            console.log('hi')
-        }
-
-        handleFindPokemon(findPokemon)
-    }, [findPokemon])
 
     return (
         <Container>
@@ -99,13 +85,6 @@ export function Home({
                 </Button>
             </Header>
 
-            {/* <Input 
-                placeholder='Find'
-                textAlign='center'
-                value={findPokemon}
-                onChangeText={setFindPokemon}
-            /> */}
-
             <PokemonListWrapper>
                 <PokemonList 
                     data={
@@ -124,7 +103,7 @@ export function Home({
                             pokedexNumber={handlePokedexNumber(item.pokedexNumber)}
                             image={item.image}
                             name={item.name}
-                            onPress={() => handleChangeScreen(item)}
+                            onPress={() => handleChangeScreen(item, pokemonList)}
                             cardColor={getColor(item.types[0].type)}
                         />
                     }

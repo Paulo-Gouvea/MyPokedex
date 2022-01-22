@@ -12,6 +12,8 @@ import {
    PokemonNumber,
    PokemonImage,
    Content,
+   PokemonSlider,
+   SliderButton,
    TypesContainer,
    ColorTitle,
    Informations,
@@ -32,6 +34,8 @@ import { PokemonInterface } from '../../interfaces/PokemonInterface';
 
 import logo from '../../assets/logo_background.png';
 import GoBackIcon from '../../assets/go_back.svg';
+import LeftIcon from '../../assets/left.svg';
+import RightIcon from '../../assets/right.svg';
 
 import { Type } from '../../components/Type';
 import { WeightCard } from '../../components/InformationContainer/WeightCard';
@@ -46,7 +50,8 @@ interface PokemonInfoProps {
 }
 
 interface Params {
-    pokemon: PokemonInterface
+    pokemon: PokemonInterface;
+    pokemonList: PokemonInterface[];
 }
 
 export function PokemonInfo({
@@ -55,10 +60,34 @@ export function PokemonInfo({
     navigation = useNavigation();
 
     const route = useRoute();
-    const { pokemon } = route.params as Params;
+    const { pokemon, pokemonList } = route.params as Params;
 
-    function HandleGoBack(){
+    function handleGoBack(){
         navigation.goBack();
+    }
+
+    function handlePreviousPokemon(actualPokemon: PokemonInterface){
+        const actualPokemonPosition = pokemonList.findIndex((element) => element.pokedexNumber === actualPokemon.pokedexNumber);
+        const previousPokemonPosition = actualPokemonPosition - 1;
+        const pokemon = pokemonList[previousPokemonPosition];
+
+        if(pokemon === undefined){
+            return;
+        }
+
+        navigation.navigate('PokemonInfo', { pokemon, pokemonList });
+    }
+
+    function handleNextPokemon(actualPokemon: PokemonInterface){
+        const actualPokemonPosition = pokemonList.findIndex((element) => element.pokedexNumber === actualPokemon.pokedexNumber);
+        const nextPokemonPosition = actualPokemonPosition + 1;
+        const pokemon = pokemonList[nextPokemonPosition];
+
+        if(pokemon === undefined){
+            return;
+        }
+
+        navigation.navigate('PokemonInfo', { pokemon, pokemonList });
     }
 
    return (
@@ -76,7 +105,7 @@ export function PokemonInfo({
           <Header>
               <NameContainer>
                   <GoBack
-                    onPress={HandleGoBack}
+                    onPress={handleGoBack}
                   >
                     <GoBackIcon 
                         height={RFValue(17)}
@@ -90,11 +119,29 @@ export function PokemonInfo({
               <PokemonNumber>{handlePokedexNumber(pokemon.pokedexNumber)}</PokemonNumber>
           </Header>
 
-          <Content>
-            <PokemonImage 
-                source={{uri: pokemon.image}}
-            />
+          <PokemonSlider>
+                <SliderButton
+                    onPress={() => handlePreviousPokemon(pokemon)}
+                >
+                    <LeftIcon 
+                        width={RFValue(12)}
+                        height={RFValue(24)}
+                    />
+                </SliderButton>
+                <PokemonImage 
+                    source={{uri: pokemon.image}}
+                />
+                <SliderButton
+                    onPress={() => handleNextPokemon(pokemon)}
+                >
+                    <RightIcon
+                        width={RFValue(12)}
+                        height={RFValue(24)}
+                    />
+                </SliderButton>
+            </PokemonSlider>
 
+          <Content>
             <TypesContainer>
                 {
                     pokemon.types.map((item) => {

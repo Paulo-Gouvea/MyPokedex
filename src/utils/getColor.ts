@@ -35,6 +35,6 @@ export function getColor(type: string){
         case 'Electric':
             return '#F9CF30';
         case 'Dragon':
-            return '#7037FF'
+            return '#7037FF';
     }
 }
