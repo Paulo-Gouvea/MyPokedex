@@ -44,7 +44,6 @@ import { AbilityCard } from '../../components/InformationContainer/AbilityCard';
 import { Line } from '../../components/InformationContainer/Line';
 import { StatsBar } from '../../components/StatsBar';
 
-
 interface PokemonInfoProps {
     navigation: NativeStackNavigationProp<any, any>;
 }
@@ -121,6 +120,7 @@ export function PokemonInfo({
 
           <PokemonSlider>
                 <SliderButton
+                    style={ pokemon.id === pokemonList[0].id && { display:'none' }}
                     onPress={() => handlePreviousPokemon(pokemon)}
                 >
                     <LeftIcon 
@@ -130,8 +130,12 @@ export function PokemonInfo({
                 </SliderButton>
                 <PokemonImage 
                     source={{uri: pokemon.image}}
+                    style={ pokemon.id === pokemonList[0].id ? { marginLeft: RFValue(100)}
+                        : pokemon.id === pokemonList[pokemonList.length - 1].id && { marginRight: RFValue(100) }
+                    }
                 />
                 <SliderButton
+                    style={ pokemon.id === pokemonList[pokemonList.length - 1].id && { display:'none' }}
                     onPress={() => handleNextPokemon(pokemon)}
                 >
                     <RightIcon

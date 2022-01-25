@@ -34,7 +34,7 @@ export function Home({
     navigation
 }: HomeProps){
     const [pokemonList, setPokemonList] = useState<PokemonInterface[]>([]);
-    const [alphabeticalOrder, setAlphabeticalOrder] = useState(false);
+    const [sortByalphabeticalOrder, setSortByAlphabeticalOrder] = useState(false);
 
     navigation = useNavigation();
 
@@ -43,7 +43,7 @@ export function Home({
     }
 
     function handleChangeOrder(){
-        setAlphabeticalOrder(!alphabeticalOrder);
+        setSortByAlphabeticalOrder(!sortByalphabeticalOrder);
     }
 
     useEffect(()=> {
@@ -70,7 +70,7 @@ export function Home({
                     onPress={handleChangeOrder}
                 >
                     {
-                        alphabeticalOrder
+                        sortByalphabeticalOrder
                         ?
                         <NumericalOrder
                             width={RFValue(20)}
@@ -88,7 +88,7 @@ export function Home({
             <PokemonListWrapper>
                 <PokemonList 
                     data={
-                        alphabeticalOrder 
+                        sortByalphabeticalOrder 
                         ?
                         pokemonList.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
                         :
