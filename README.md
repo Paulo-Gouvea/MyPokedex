@@ -18,6 +18,7 @@ Projeto baseado em um design de pokédex que encontrei no Figma. O aplicativo ap
 - Usuário pode selecionar se a lista de pokémons será apresentada ou em ordem alfabética ou em ordem numérica;
 - Usuário pode selecionar um pokémon para ver informações detalhadas sobre ele;
 - Usuário pode ir ou para o pokémon anterior ou o pokémon seguinte na ordem numérica utilizando os botões com ícones de seta;
+- (adicionado 25/01/22) Usuário pode procurar por um pokémon específico digitando o nome dele;
 
 # Tecnologias
 
