@@ -35,8 +35,26 @@ export const HeaderTitle = styled.Text`
   margin-left: ${RFValue(16)}px;
 `
 
-export const Button = styled.TouchableOpacity`
-  
+export const Button = styled.TouchableOpacity``
+
+export const Input = styled.TextInput`
+  width: 100%;
+  height: ${RFValue(32)}px;
+
+  background-color: ${({ theme }) => theme.colors.white};
+
+  border-radius: 8px;
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors.light_gray};
+
+  padding: ${RFValue(4)}px ${RFValue(8)}px;
+
+  margin-bottom: ${RFValue(10)}px;
+
+  text-align: center;
+  font-size:${RFValue(10)}px;
+  font-family: ${({theme}) => theme.fonts.regular};
+  color: ${({theme}) => theme.colors.medium_gray};
 `
 
 export const PokemonListWrapper = styled.View`
