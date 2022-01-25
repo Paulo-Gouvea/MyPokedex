@@ -20,6 +20,12 @@ Projeto baseado em um design de pokédex que encontrei no Figma. O aplicativo ap
 - Usuário pode ir ou para o pokémon anterior ou o pokémon seguinte na ordem numérica utilizando os botões com ícones de seta;
 - (adicionado 25/01/22) Usuário pode procurar por um pokémon específico digitando o nome dele;
 
+# QR CODE:
+
+IMPORTANTE: é necessário ter o aplicativo do expo para testar o projeto:
+
+![teste](https://user-images.githubusercontent.com/76439397/151027455-16976c7d-c1d6-4612-bd58-34afbe60d642.png)
+
 # Tecnologias
 
 - React Native;
